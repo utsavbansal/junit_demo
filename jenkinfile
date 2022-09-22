@@ -1,0 +1,16 @@
+pipleline
+{
+	agent any
+	stages
+	{
+		stage('Build')
+		{
+			steps
+			{
+				git 'https://github.com/utsavbansal/junit_demo.git'
+				sh './mvnw clean compile'
+			}
+		}
+	}
+	
+}
