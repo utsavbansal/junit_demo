@@ -9,7 +9,7 @@ pipeline
 			steps
 			{
 				git 'https://github.com/utsavbansal/junit_demo.git'
-				sh './mvn clean compile'
+				sh './mvnw clean compile'
 			}
 		}
 		stage('Test')
