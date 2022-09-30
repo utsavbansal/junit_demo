@@ -11,21 +11,20 @@ pipeline
 		{
 			steps
 			{
-				git 'https://github.com/utsavbansal/junit_demo.git'
-				sh './mvnw clean compile'
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '9704ff0f-7d98-4023-94c0-7fb9586aa83a', url: 'https://github.com/utsavbansal/junit_demo.git']]])
+				sh "mvn -Dmaven.test.failure.Ignore=true clean package"
 			}
 		}
 		stage('Test')
 		{
-			steps
-			{
-				sh './mvnw test'
-			}
 			post
 			{
 				always	
 				{
-					junit '**/target/surefire-reports/Test-*.xml'
+					junit(
+						allowEmptyResults:true,
+						testResults: '*test-reports/.xml'
+					) 
 				}
 			}
 		}
